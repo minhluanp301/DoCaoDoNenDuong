@@ -214,6 +214,15 @@ function saveLocal(){
  clearTimeout(saveTimer);
  saveTimer=setTimeout(()=>{try{localStorage.setItem("levelSurveyDataV3",JSON.stringify(payload()));$("saveStatus").textContent="Đã tự động lưu tạm lúc "+new Date().toLocaleTimeString("vi-VN");}catch(e){$("saveStatus").textContent="Không thể tự động lưu; hãy tải tệp JSON để sao lưu.";}},300);
 }
+function slug(t,d){const x=String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"D").replace(/[^A-Za-z0-9]+/g,"-").replace(/^-+|-+$/g,"");return x||d;}
+// Tên file: yyyymmdd_hhmmss_tên đường_đoạn đường_nội dung_stt
+function fileName(content,ext,road,seg){
+ const n=new Date(),z=v=>String(v).padStart(2,"0");
+ const day=""+n.getFullYear()+z(n.getMonth()+1)+z(n.getDate()),tm=z(n.getHours())+z(n.getMinutes())+z(n.getSeconds());
+ const base=[day,tm,slug(road,"duong"),slug(seg,"doan"),content].join("_"),key="levelSurveyStt_"+day+"_"+content;
+ let k=1;try{k=(Number(localStorage.getItem(key))||0)+1;localStorage.setItem(key,k);}catch(e){}
+ return base+"_"+z(k)+"."+ext;
+}
 function download(content,type,name){const url=URL.createObjectURL(new Blob([content],{type})),a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function exportRows(){
  const d=payload(),hi=num(d.benchmark.elevation)+num(d.benchmark.reading);
@@ -222,7 +231,7 @@ function exportRows(){
  d.sections.forEach(s=>{const r=[s.name];POS.forEach(p=>{const st=num(s.values[p].staff),dg=num(s.values[p].design),ac=hi-st,dl=ac-dg;r.push(s.values[p].staff,s.values[p].design,fmt(ac),Number.isFinite(dl)?signed(dl):"—");});rows.push(r);});
  return rows;
 }
-function csvExport(){download("\uFEFF"+exportRows().map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(";")).join("\r\n"),"text/csv;charset=utf-8;","bang_kiem_tra_cao_do_duong.csv");}
+function csvExport(){download("\uFEFF"+exportRows().map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(";")).join("\r\n"),"text/csv;charset=utf-8;",fileName("bang_kiem_tra_cao_do","csv",$("roadName").value,$("roadSegment").value));}
 
 /* ===== Nhập theo thiết kế: 3 ô CĐTK trên một dòng ===== */
 function renderDesignRows(){
@@ -260,7 +269,7 @@ $("applyDesign").addEventListener("click",()=>{
 });
 $("saveDesignFile").addEventListener("click",()=>{
  if(!validDesign())return;
- download(JSON.stringify({app:"kiem-tra-cao-do-duong-design",version:1,savedAt:new Date().toISOString(),road:{name:$("designRoadName").value,segment:$("designRoadSegment").value},sections:designRows.map(({name,left,center,right})=>({name,left,center,right}))},null,2),"application/json;charset=utf-8;","thiet_ke_mat_cat_duong.json");
+ download(JSON.stringify({app:"kiem-tra-cao-do-duong-design",version:1,savedAt:new Date().toISOString(),road:{name:$("designRoadName").value,segment:$("designRoadSegment").value},sections:designRows.map(({name,left,center,right})=>({name,left,center,right}))},null,2),"application/json;charset=utf-8;",fileName("thiet_ke_mat_cat","json",$("designRoadName").value,$("designRoadSegment").value));
  $("designStatus").textContent="Đã tạo file thiết kế. Có thể mở file này ở lần đo tiếp theo.";
 });
 $("openDesignFile").addEventListener("click",()=>$("designFile").click());
@@ -287,9 +296,9 @@ $("exportCsv").addEventListener("click",csvExport);
 $("exportXlsx").addEventListener("click",()=>{
  if(!window.XLSX){alert("Không tải được thư viện Excel. Công cụ sẽ xuất CSV thay thế.");csvExport();return;}
  const wb=XLSX.utils.book_new(),ws=XLSX.utils.aoa_to_sheet(exportRows());ws["!cols"]=Array(13).fill({wch:19});
- XLSX.utils.book_append_sheet(wb,ws,"Kiem tra cao do");XLSX.writeFile(wb,"bang_kiem_tra_cao_do_duong.xlsx");
+ XLSX.utils.book_append_sheet(wb,ws,"Kiem tra cao do");XLSX.writeFile(wb,fileName("bang_kiem_tra_cao_do","xlsx",$("roadName").value,$("roadSegment").value));
 });
-$("saveJson").addEventListener("click",()=>download(JSON.stringify(payload(),null,2),"application/json;charset=utf-8;","du_lieu_kiem_tra_cao_do.json"));
+$("saveJson").addEventListener("click",()=>download(JSON.stringify(payload(),null,2),"application/json;charset=utf-8;",fileName("du_lieu_kiem_tra_cao_do","json",$("roadName").value,$("roadSegment").value)));
 $("openJson").addEventListener("click",()=>$("jsonFile").click());
 $("jsonFile").addEventListener("change",async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(confirm("Mở tệp sẽ thay thế dữ liệu đang hiển thị. Tiếp tục?"))applyData(d);}catch(err){alert("Không thể mở tệp: "+err.message);}finally{e.target.value="";}});
 $("print").addEventListener("click",()=>window.print());
