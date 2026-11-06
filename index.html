@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiểm tra cao độ đường - Máy thủy bình</title>
+<style>
+:root{font-family:Arial,Helvetica,sans-serif;color:#1e293b;background:#f3f6fa}
+*{box-sizing:border-box}body{margin:0;padding:22px}.wrap{max-width:1600px;margin:auto}
+h1{font-size:25px;margin:0 0 7px;color:#123b63}.sub{color:#64748b;margin:0 0 20px;line-height:1.5}
+.panel{background:#fff;border:1px solid #dce4ee;border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px #0f172a0a}
+h2{font-size:18px;margin:0 0 14px;color:#174a78}.grid{display:grid;grid-template-columns:repeat(3,minmax(180px,1fr));gap:14px}
+label{display:block;font-weight:600;font-size:13px;margin-bottom:6px;color:#475569}
+input{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:7px;font-size:14px;background:#fff}
+input:focus,button:focus-visible{outline:2px solid #93c5fd;border-color:#3b82f6}
+.metric{background:#eef6ff;border:1px solid #cfe4fb;border-radius:9px;padding:12px}
+.metric span{display:block;color:#52677d;font-size:12px;margin-bottom:5px}.metric strong{font-size:22px;color:#124a7a;font-variant-numeric:tabular-nums}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+button{border:0;border-radius:7px;padding:10px 14px;font-weight:700;cursor:pointer}
+.primary{background:#1769aa;color:#fff}.secondary{background:#e7eef6;color:#23415e}.danger{background:#fee2e2;color:#991b1b}.success{background:#15803d;color:#fff}
+.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:1450px;font-size:13px}
+th,td{border:1px solid #dbe3ec;padding:7px;text-align:center;white-space:nowrap}
+thead tr:first-child th{background:#dceaf7;color:#173e61}thead tr:nth-child(2) th{background:#eaf1f8;color:#23415e}
+td input{min-width:85px;padding:7px;text-align:right}
+.result{font-weight:700;font-variant-numeric:tabular-nums}.up{color:#b45309}.down{color:#dc2626}.equal{color:#15803d}
+.badge{display:inline-block;padding:4px 8px;border-radius:20px;background:#f1f5f9;font-size:12px}
+.note{font-size:13px;color:#64748b;line-height:1.5}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.file-input{display:none}.statusbar{font-size:12px;color:#64748b;margin-top:9px}
+
+/* Hộp nhập thiết kế: mỗi mặt cắt = tên + 3 ô CĐTK trên một dòng */
+.dlg{display:none;position:fixed;inset:0;background:#0f172a88;z-index:1000;padding:14px;overflow:auto}
+.dlg.open{display:block}.dbox{max-width:900px;margin:20px auto;background:#fff;border-radius:12px;padding:18px;box-shadow:0 12px 40px #0003}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.drow{display:grid;grid-template-columns:minmax(110px,1fr) repeat(3,minmax(0,1.2fr));gap:8px;align-items:end;padding:8px;margin-bottom:8px;border:1px solid #dbe3ec;border-radius:9px;background:#f8fbff}
+.drow label{margin:0;font-size:12px}.drow label span{display:block;margin-bottom:4px;color:#475569}
+.drow input{text-align:center;font-size:14px}.drow .dname{display:flex;gap:4px;align-items:end}
+.drow .dname input{text-align:left;font-weight:700}.drow .dname button{padding:0;width:32px;height:36px;flex:none}
+.dactions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+@media print{body{background:#fff;padding:0}.wrap{max-width:none}.panel{box-shadow:none;border:0;padding:7px 0;margin-bottom:8px}.actions,.no-print,.statusbar{display:none!important}input{border:0;padding:2px;background:transparent!important;color:#000}h1{font-size:19px}table{min-width:0;font-size:8px}th,td{padding:3px}.metric{break-inside:avoid}}
+
+@media(max-width:760px){
+ body{padding:8px}h1{font-size:19px;line-height:1.3}.sub{font-size:13px;margin-bottom:12px}
+ .panel{padding:12px;border-radius:10px;margin-bottom:11px}h2{font-size:16px}.grid{grid-template-columns:1fr;gap:10px}
+ input{font-size:16px;min-height:40px;padding:8px}.table-wrap{overflow:visible}
+ table,thead,tbody{display:block;width:100%;min-width:0}thead{display:none}
+ tbody tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto repeat(4,minmax(68px,auto)) auto;gap:6px;border:1px solid #cbd5e1;border-radius:10px;padding:9px;margin-bottom:12px;background:#fff;box-shadow:0 1px 4px #0f172a0d}
+ tbody td{display:block;min-width:0;border:0;padding:5px 4px;white-space:normal;text-align:left}
+ tbody td:first-child{grid-column:1/-1;grid-row:1;padding:2px 0 9px;border-bottom:1px solid #e2e8f0;margin-bottom:3px}
+ tbody td:first-child input{font-weight:700;background:#f1f7fd;min-width:0;text-align:left}
+ tbody td[data-l]{display:flex;flex-direction:column;justify-content:space-between;gap:4px;border-radius:5px;height:100%}
+ tbody td[data-l]::before{content:attr(data-l);font-size:10px;color:#475569;font-weight:700;line-height:1.2}
+ tbody td[data-g="left"]{grid-column:1;background:#f0f7ff}tbody td[data-g="center"]{grid-column:2;background:#f0fdf4}tbody td[data-g="right"]{grid-column:3;background:#fff7ed}
+ tbody td[data-r="1"]{grid-row:2}tbody td[data-r="2"]{grid-row:3}tbody td[data-r="3"]{grid-row:4}tbody td[data-r="4"]{grid-row:5}
+ tbody td input{min-width:0;padding:6px 3px;min-height:36px;font-size:14px;text-align:center}
+ tbody td.actual,tbody td.delta{font-weight:700;font-size:13px;justify-content:space-between}
+ tbody td.no-print{grid-column:1/-1;grid-row:6;text-align:right;padding-top:4px}
+ .actions,.dactions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.actions button,.dactions button{min-height:42px;padding:9px 7px;font-size:13px}
+ .note{font-size:12px}
+ .dlg{padding:6px}.dbox{margin:0 auto;padding:10px;border-radius:10px}.dgrid{grid-template-columns:1fr}
+ .drow{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:8px}
+ .drow .dname{grid-column:1/-1}.drow label{font-size:11px}.drow input{padding:5px 2px;font-size:14px;min-height:38px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>KIỂM TRA CAO ĐỘ ĐƯỜNG BẰNG MÁY THỦY BÌNH</h1>
+<p class="sub">Thông tin công trình, tuyến đường, thời gian đo và kết quả kiểm tra cao độ theo từng mặt cắt. Mỗi mặt cắt được trình bày trên một dòng, gồm vị trí Trái – Tim – Phải.</p>
+
+<section class="panel">
+<h2>1. Thông tin công trình</h2>
+<div class="grid">
+ <div><label for="roadName">Tên đường</label><input id="roadName" type="text" placeholder="Ví dụ: Đường Nguyễn Văn A"></div>
+ <div><label for="roadSegment">Đoạn đường</label><input id="roadSegment" type="text" placeholder="Ví dụ: Km0+000 – Km1+200"></div>
+ <div><label for="projectName">Tên công trình / dự án</label><input id="projectName" type="text" placeholder="Nhập tên công trình (nếu có)"></div>
+ <div><label for="measuredAt">Thời gian đo</label><input id="measuredAt" type="datetime-local"></div>
+</div>
+</section>
+
+<section class="panel">
+<h2>2. Số liệu điểm mốc và máy thủy bình</h2>
+<div class="grid">
+ <div><label for="bmElev">Cao độ điểm mốc (mm)</label><input id="bmElev" type="number" step="1" value="10000"></div>
+ <div><label for="bmRead">Số đọc mia tại điểm mốc (mm)</label><input id="bmRead" type="number" step="1" value="1250"></div>
+ <div class="metric"><span>Chiều cao máy (H máy, mm)</span><strong id="hi">11250</strong></div>
+</div>
+<p class="note">H máy = Cao độ điểm mốc + Số đọc mia tại điểm mốc. Cao độ đo = H máy − Số đọc mia tại vị trí kiểm tra. Tất cả số liệu và kết quả tính bằng milimét (mm).</p>
+</section>
+
+<section class="panel">
+<div class="toolbar"><h2 style="margin:0">3. Bảng kiểm tra cao độ theo mặt cắt</h2><span class="badge" id="sectionCount">5 mặt cắt</span></div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th rowspan="2">Mặt cắt / Lý trình</th><th colspan="4">Trái</th><th colspan="4">Tim</th><th colspan="4">Phải</th><th rowspan="2" class="no-print">Xóa</th></tr>
+<tr>
+ <th>Số đọc mia</th><th>CĐ thiết kế</th><th>CĐ đo</th><th>ΔH</th>
+ <th>Số đọc mia</th><th>CĐ thiết kế</th><th>CĐ đo</th><th>ΔH</th>
+ <th>Số đọc mia</th><th>CĐ thiết kế</th><th>CĐ đo</th><th>ΔH</th>
+</tr>
+</thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
+<div class="actions no-print">
+ <button class="primary" id="addSection">＋ Thêm mặt cắt</button>
+ <button class="secondary" id="openDesignEditor">Nhập theo thiết kế</button>
+ <button class="secondary" id="openDesignFile">Mở file thiết kế</button>
+ <button class="secondary" id="recalc">Tính lại</button>
+ <button class="success" id="exportXlsx">Xuất Excel (.xlsx)</button>
+ <button class="secondary" id="exportCsv">Xuất CSV</button>
+ <button class="secondary" id="saveJson">Lưu số liệu (JSON)</button>
+ <button class="secondary" id="openJson">Mở số liệu (JSON)</button>
+ <button class="secondary" id="print">In / Xuất PDF</button>
+ <button class="danger" id="reset">Khôi phục mẫu</button>
+ <input class="file-input" id="jsonFile" type="file" accept=".json,application/json">
+ <input class="file-input" id="designFile" type="file" accept=".json,application/json">
+</div>
+<p class="note">Nhập số đọc mia và cao độ thiết kế cho từng vị trí Trái, Tim, Phải. Có thể nhập lý trình như Km0+020, Km0+040 hoặc tên mặt cắt tùy ý.</p>
+<div class="statusbar" id="saveStatus" aria-live="polite">Chưa có thay đổi.</div>
+</section>
+
+<div class="dlg" id="designDialog" role="dialog" aria-modal="true" aria-labelledby="designTitle">
+ <div class="dbox">
+  <div class="toolbar"><h2 id="designTitle" style="margin:0">Nhập mặt cắt theo thiết kế</h2><button class="secondary" id="closeDesign">Đóng</button></div>
+  <p class="note">Mỗi mặt cắt nhập trên một dòng: tên mặt cắt và ba cao độ thiết kế (mm) CĐTK trái – tim – phải. Bấm "Áp dụng vào bảng đo" để đưa vào bảng chính (giữ nguyên số đọc mia đã nhập), hoặc "Lưu file thiết kế" để dùng lại sau.</p>
+  <div class="dgrid">
+   <div><label for="designRoadName">Tên đường</label><input id="designRoadName" type="text" placeholder="Tên đường"></div>
+   <div><label for="designRoadSegment">Đoạn đường</label><input id="designRoadSegment" type="text" placeholder="Ví dụ: Km0+000 – Km1+200"></div>
+  </div>
+  <div id="designRows"></div>
+  <div class="dactions"><button class="secondary" id="addDesignRow">＋ Thêm mặt cắt</button><button class="primary" id="applyDesign">Áp dụng vào bảng đo</button><button class="success" id="saveDesignFile">Lưu file thiết kế</button></div>
+  <p class="statusbar" id="designStatus" aria-live="polite"></p>
+ </div>
+</div>
+
+<section class="panel">
+<h2>4. Tổng hợp kết quả</h2>
+<div class="grid">
+ <div class="metric"><span>Số vị trí đã có số đọc mia</span><strong id="measuredCount">0</strong></div>
+ <div class="metric"><span>Số vị trí cao hơn thiết kế</span><strong id="aboveCount">0</strong></div>
+ <div class="metric"><span>Số vị trí thấp hơn thiết kế</span><strong id="belowCount">0</strong></div>
+</div>
+<p class="note">Quy ước ΔH = Cao độ đo − Cao độ thiết kế. ΔH dương: cao hơn; ΔH âm: thấp hơn; ΔH bằng 0 mm: đúng thiết kế. Đây là so sánh số học, chưa tự kết luận nghiệm thu đạt/không đạt nếu chưa khai báo dung sai cho phép.</p>
+</section>
+</div>
+<script>
+"use strict";
+const POS=["left","center","right"],LB={left:"Trái",center:"Tim",right:"Phải"};
+const INIT=["1","C1","C2","2","C3"],$=id=>document.getElementById(id);
+const fmt=n=>Number.isFinite(n)?n.toFixed(0):"—";
+const num=v=>String(v??"").trim()===""?NaN:Number(v);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const signed=d=>(d>0?"+":"")+fmt(d);
+let sections=[],nextId=1,designRows=[],saveTimer;
+
+const emptyVals=()=>Object.fromEntries(POS.map(p=>[p,{staff:"",design:""}]));
+const makeSection=name=>({id:nextId++,name,values:emptyVals()});
+function initialData(){sections=[];nextId=1;INIT.forEach(n=>sections.push(makeSection(n)));}
+const instrumentHeight=()=>{const h=num($("bmElev").value)+num($("bmRead").value);$("hi").textContent=fmt(h);return h;};
+
+function renderRows(){
+ $("rows").innerHTML=sections.map(sec=>{
+  let c=`<td><input class="section-name" aria-label="Tên mặt cắt" type="text" value="${esc(sec.name)}" style="min-width:120px;text-align:left"></td>`;
+  POS.forEach(p=>{const v=sec.values[p],L=LB[p].toUpperCase();
+   c+=`<td data-g="${p}" data-r="1" data-l="${L} · Mia đọc"><input class="staff" data-pos="${p}" aria-label="Số đọc mia ${LB[p]}" type="number" step="1" placeholder="Số đọc" value="${esc(v.staff)}"></td>
+   <td data-g="${p}" data-r="2" data-l="CĐ thiết kế"><input class="design" data-pos="${p}" aria-label="Cao độ thiết kế ${LB[p]}" type="number" step="1" placeholder="Thiết kế" value="${esc(v.design)}"></td>
+   <td class="result actual" data-g="${p}" data-r="3" data-l="CĐ đo">—</td><td class="result delta" data-g="${p}" data-r="4" data-l="ΔH">—</td>`;});
+  return `<tr data-id="${sec.id}">${c}<td class="no-print"><button class="danger delete-row" type="button" aria-label="Xóa mặt cắt">×</button></td></tr>`;
+ }).join("");
+ calculate();
+}
+// Ủy quyền sự kiện: không cần gắn lại listener sau mỗi lần vẽ
+$("rows").addEventListener("input",e=>{
+ const t=e.target,tr=t.closest("tr"),sec=sections.find(s=>s.id===Number(tr.dataset.id));if(!sec)return;
+ if(t.classList.contains("section-name"))sec.name=t.value;
+ else sec.values[t.dataset.pos][t.classList.contains("staff")?"staff":"design"]=t.value;
+ calculate();saveLocal();
+});
+$("rows").addEventListener("click",e=>{
+ const b=e.target.closest(".delete-row");if(!b)return;
+ const id=Number(b.closest("tr").dataset.id);sections=sections.filter(s=>s.id!==id);renderRows();saveLocal();
+});
+
+function calculate(){
+ const hi=instrumentHeight();let m=0,a=0,b=0;
+ document.querySelectorAll("#rows tr").forEach(tr=>POS.forEach(p=>{
+  const q=s=>tr.querySelector(`${s}[data-pos="${p}"]`),ac=tr.querySelector(`.actual[data-g="${p}"]`),dc=tr.querySelector(`.delta[data-g="${p}"]`);
+  const staff=num(q(".staff").value),design=num(q(".design").value),actual=hi-staff;
+  if(Number.isFinite(actual)){m++;ac.textContent=fmt(actual);}else ac.textContent="—";
+  if(Number.isFinite(actual)&&Number.isFinite(design)){
+   const d=actual-design;dc.textContent=signed(d);
+   if(Math.abs(d)<0.5)dc.className="result delta equal";else if(d>0){dc.className="result delta up";a++;}else{dc.className="result delta down";b++;}
+  }else{dc.textContent="—";dc.className="result delta";}
+ }));
+ $("measuredCount").textContent=m;$("aboveCount").textContent=a;$("belowCount").textContent=b;
+ $("sectionCount").textContent=sections.length+" mặt cắt";
+}
+
+const payload=()=>({app:"kiem-tra-cao-do-duong",version:3,savedAt:new Date().toISOString(),measuredAt:$("measuredAt").value,road:{name:$("roadName").value,segment:$("roadSegment").value,project:$("projectName").value},benchmark:{elevation:$("bmElev").value,reading:$("bmRead").value},sections});
+const toMm=(v,ver)=>{if(ver!==2||v===""||v==null)return String(v??"");const n=Number(v);return Number.isFinite(n)?String(Math.round(n*1000)):"";}; // file cũ (m) → mm
+function applyData(d){
+ if(!d||!d.benchmark||!Array.isArray(d.sections))throw Error("Tệp không đúng định dạng dữ liệu.");
+ $("roadName").value=d.road?.name??"";$("roadSegment").value=d.road?.segment??"";$("projectName").value=d.road?.project??"";$("measuredAt").value=d.measuredAt??"";
+ const k=d.version===2?1000:1;
+ $("bmElev").value=d.benchmark.elevation!==""&&d.benchmark.elevation!=null?Number(d.benchmark.elevation)*k:10000;
+ $("bmRead").value=d.benchmark.reading!==""&&d.benchmark.reading!=null?Number(d.benchmark.reading)*k:1250;
+ nextId=1;
+ sections=d.sections.map(s=>({id:nextId++,name:String(s.name??""),values:Object.fromEntries(POS.map(p=>[p,{staff:toMm(s.values?.[p]?.staff,d.version),design:toMm(s.values?.[p]?.design,d.version)}]))}));
+ renderRows();saveLocal();
+}
+function saveLocal(){
+ clearTimeout(saveTimer);
+ saveTimer=setTimeout(()=>{try{localStorage.setItem("levelSurveyDataV3",JSON.stringify(payload()));$("saveStatus").textContent="Đã tự động lưu tạm lúc "+new Date().toLocaleTimeString("vi-VN");}catch(e){$("saveStatus").textContent="Không thể tự động lưu; hãy tải tệp JSON để sao lưu.";}},300);
+}
+function download(content,type,name){const url=URL.createObjectURL(new Blob([content],{type})),a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function exportRows(){
+ const d=payload(),hi=num(d.benchmark.elevation)+num(d.benchmark.reading);
+ const rows=[["Tên đường",d.road.name],["Đoạn đường",d.road.segment],["Công trình",d.road.project],["Thời gian đo",d.measuredAt],["Cao độ mốc (mm)",d.benchmark.elevation],["Số đọc mia mốc (mm)",d.benchmark.reading],["Chiều cao máy (mm)",fmt(hi)],[]];
+ rows.push(["Mặt cắt",...POS.flatMap(p=>["Số đọc mia","CĐ thiết kế","CĐ đo","ΔH"].map(x=>`${LB[p]} - ${x} (mm)`))]);
+ d.sections.forEach(s=>{const r=[s.name];POS.forEach(p=>{const st=num(s.values[p].staff),dg=num(s.values[p].design),ac=hi-st,dl=ac-dg;r.push(s.values[p].staff,s.values[p].design,fmt(ac),Number.isFinite(dl)?signed(dl):"—");});rows.push(r);});
+ return rows;
+}
+function csvExport(){download("\uFEFF"+exportRows().map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(";")).join("\r\n"),"text/csv;charset=utf-8;","bang_kiem_tra_cao_do_duong.csv");}
+
+/* ===== Nhập theo thiết kế: 3 ô CĐTK trên một dòng ===== */
+function renderDesignRows(){
+ $("designRows").innerHTML=designRows.map((r,i)=>`<div class="drow" data-i="${i}">
+  <div class="dname"><input type="text" data-f="name" value="${esc(r.name)}" placeholder="Tên mặt cắt" aria-label="Tên mặt cắt"><button type="button" class="danger" data-remove aria-label="Xóa mặt cắt">×</button></div>
+  ${POS.map(p=>`<label><span>CĐTK ${LB[p].toLowerCase()}</span><input type="number" step="1" inputmode="numeric" data-f="${p}" value="${esc(r[p])}" placeholder="mm"></label>`).join("")}
+ </div>`).join("");
+}
+$("designRows").addEventListener("input",e=>{const row=e.target.closest(".drow");if(row&&e.target.dataset.f)designRows[row.dataset.i][e.target.dataset.f]=e.target.value;});
+$("designRows").addEventListener("click",e=>{const b=e.target.closest("[data-remove]");if(!b)return;designRows.splice(Number(b.closest(".drow").dataset.i),1);renderDesignRows();});
+function addDesignRow(name=""){designRows.push({name,left:"",center:"",right:""});renderDesignRows();const l=$("designRows").querySelectorAll(".drow");l[l.length-1]?.querySelector("input").focus();}
+function openDesignEditor(){
+ $("designRoadName").value=$("roadName").value;$("designRoadSegment").value=$("roadSegment").value;
+ designRows=sections.map(s=>({name:s.name,left:s.values.left.design,center:s.values.center.design,right:s.values.right.design}));
+ if(!designRows.length)designRows.push({name:"1",left:"",center:"",right:""});
+ renderDesignRows();$("designStatus").textContent="";$("designDialog").classList.add("open");
+}
+const closeDesign=()=>$("designDialog").classList.remove("open");
+function validDesign(){
+ if(!designRows.length){alert("Hãy nhập ít nhất một mặt cắt.");return false;}
+ if(designRows.some(r=>!String(r.name).trim())){alert("Vui lòng nhập lý trình/tên cho tất cả mặt cắt.");return false;}
+ return true;
+}
+$("openDesignEditor").addEventListener("click",openDesignEditor);
+$("closeDesign").addEventListener("click",closeDesign);
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDesign();});
+$("addDesignRow").addEventListener("click",()=>addDesignRow());
+$("applyDesign").addEventListener("click",()=>{
+ if(!validDesign())return;
+ // Giữ lại số đọc mia của mặt cắt cùng vị trí (theo thứ tự dòng)
+ const old=sections;nextId=1;
+ sections=designRows.map((r,i)=>{const s=makeSection(r.name.trim());POS.forEach(p=>{s.values[p].design=String(r[p]??"");s.values[p].staff=old[i]?.values[p].staff??"";});return s;});
+ $("roadName").value=$("designRoadName").value;$("roadSegment").value=$("designRoadSegment").value;
+ renderRows();saveLocal();closeDesign();$("saveStatus").textContent="Đã áp dụng thiết kế cho "+sections.length+" mặt cắt.";
+});
+$("saveDesignFile").addEventListener("click",()=>{
+ if(!validDesign())return;
+ download(JSON.stringify({app:"kiem-tra-cao-do-duong-design",version:1,savedAt:new Date().toISOString(),road:{name:$("designRoadName").value,segment:$("designRoadSegment").value},sections:designRows.map(({name,left,center,right})=>({name,left,center,right}))},null,2),"application/json;charset=utf-8;","thiet_ke_mat_cat_duong.json");
+ $("designStatus").textContent="Đã tạo file thiết kế. Có thể mở file này ở lần đo tiếp theo.";
+});
+$("openDesignFile").addEventListener("click",()=>$("designFile").click());
+$("designFile").addEventListener("change",async e=>{
+ const f=e.target.files[0];if(!f)return;
+ try{
+  const d=JSON.parse(await f.text());
+  if(d.app!=="kiem-tra-cao-do-duong-design"||!Array.isArray(d.sections))throw Error("Đây không phải file thiết kế mặt cắt hợp lệ.");
+  if(!confirm("Mở file thiết kế sẽ thay thế danh sách mặt cắt hiện tại. Số đọc mia sẽ được xóa để bắt đầu đo mới. Tiếp tục?"))return;
+  $("roadName").value=d.road?.name??"";$("roadSegment").value=d.road?.segment??"";nextId=1;
+  sections=d.sections.map(r=>{const s=makeSection(String(r.name??""));POS.forEach(p=>{s.values[p].design=String(r[p]??"");});return s;});
+  renderRows();saveLocal();$("saveStatus").textContent="Đã nạp thiết kế và tạo "+sections.length+" mặt cắt để tiến hành đo.";
+ }catch(err){alert("Không thể mở file thiết kế: "+err.message);}
+ finally{e.target.value="";}
+});
+
+/* ===== Sự kiện chung ===== */
+["bmElev","bmRead"].forEach(id=>$(id).addEventListener("input",()=>{calculate();saveLocal();}));
+["roadName","roadSegment","projectName","measuredAt"].forEach(id=>$(id).addEventListener("input",saveLocal));
+$("recalc").addEventListener("click",calculate);
+$("addSection").addEventListener("click",()=>{const n=prompt("Nhập lý trình hoặc tên mặt cắt (ví dụ: Km0+020):");if(n===null||!n.trim())return;sections.push(makeSection(n.trim()));renderRows();saveLocal();});
+$("reset").addEventListener("click",()=>{if(!confirm("Khôi phục mẫu ban đầu? Toàn bộ số liệu hiện tại sẽ bị xóa."))return;["roadName","roadSegment","projectName"].forEach(id=>$(id).value="");$("bmElev").value="10000";$("bmRead").value="1250";initialData();renderRows();saveLocal();});
+$("exportCsv").addEventListener("click",csvExport);
+$("exportXlsx").addEventListener("click",()=>{
+ if(!window.XLSX){alert("Không tải được thư viện Excel. Công cụ sẽ xuất CSV thay thế.");csvExport();return;}
+ const wb=XLSX.utils.book_new(),ws=XLSX.utils.aoa_to_sheet(exportRows());ws["!cols"]=Array(13).fill({wch:19});
+ XLSX.utils.book_append_sheet(wb,ws,"Kiem tra cao do");XLSX.writeFile(wb,"bang_kiem_tra_cao_do_duong.xlsx");
+});
+$("saveJson").addEventListener("click",()=>download(JSON.stringify(payload(),null,2),"application/json;charset=utf-8;","du_lieu_kiem_tra_cao_do.json"));
+$("openJson").addEventListener("click",()=>$("jsonFile").click());
+$("jsonFile").addEventListener("change",async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(confirm("Mở tệp sẽ thay thế dữ liệu đang hiển thị. Tiếp tục?"))applyData(d);}catch(err){alert("Không thể mở tệp: "+err.message);}finally{e.target.value="";}});
+$("print").addEventListener("click",()=>window.print());
+
+(function start(){
+ try{const old=localStorage.getItem("levelSurveyDataV3");if(old){applyData(JSON.parse(old));$("saveStatus").textContent="Đã khôi phục dữ liệu tự động lưu.";return;}}catch(e){}
+ const now=new Date();$("measuredAt").value=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,16);
+ initialData();renderRows();
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</body></html>
