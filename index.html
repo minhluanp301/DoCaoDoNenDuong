@@ -22,7 +22,7 @@ button{border:0;border-radius:7px;padding:10px 14px;font-weight:700;cursor:point
 th,td{border:1px solid #dbe3ec;padding:7px;text-align:center;white-space:nowrap}
 thead tr:first-child th{background:#dceaf7;color:#173e61}thead tr:nth-child(2) th{background:#eaf1f8;color:#23415e}
 td input{min-width:85px;padding:7px;text-align:right}
-.result{font-weight:700;font-variant-numeric:tabular-nums}.up{color:#b45309}.down{color:#dc2626}.equal{color:#15803d}
+.result{font-weight:700;font-variant-numeric:tabular-nums}.calc{color:#6d28d9}.up{color:#b45309}.down{color:#dc2626}.equal{color:#15803d}
 .badge{display:inline-block;padding:4px 8px;border-radius:20px;background:#f1f5f9;font-size:12px}
 .note{font-size:13px;color:#64748b;line-height:1.5}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .file-input{display:none}.statusbar{font-size:12px;color:#64748b;margin-top:9px}
@@ -44,17 +44,17 @@ td input{min-width:85px;padding:7px;text-align:right}
  .panel{padding:12px;border-radius:10px;margin-bottom:11px}h2{font-size:16px}.grid{grid-template-columns:1fr;gap:10px}
  input{font-size:16px;min-height:40px;padding:8px}.table-wrap{overflow:visible}
  table,thead,tbody{display:block;width:100%;min-width:0}thead{display:none}
- tbody tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto repeat(4,minmax(68px,auto)) auto;gap:6px;border:1px solid #cbd5e1;border-radius:10px;padding:9px;margin-bottom:12px;background:#fff;box-shadow:0 1px 4px #0f172a0d}
+ tbody tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto repeat(5,minmax(68px,auto)) auto;gap:6px;border:1px solid #cbd5e1;border-radius:10px;padding:9px;margin-bottom:12px;background:#fff;box-shadow:0 1px 4px #0f172a0d}
  tbody td{display:block;min-width:0;border:0;padding:5px 4px;white-space:normal;text-align:left}
  tbody td:first-child{grid-column:1/-1;grid-row:1;padding:2px 0 9px;border-bottom:1px solid #e2e8f0;margin-bottom:3px}
  tbody td:first-child input{font-weight:700;background:#f1f7fd;min-width:0;text-align:left}
  tbody td[data-l]{display:flex;flex-direction:column;justify-content:space-between;gap:4px;border-radius:5px;height:100%}
  tbody td[data-l]::before{content:attr(data-l);font-size:10px;color:#475569;font-weight:700;line-height:1.2}
  tbody td[data-g="left"]{grid-column:1;background:#f0f7ff}tbody td[data-g="center"]{grid-column:2;background:#f0fdf4}tbody td[data-g="right"]{grid-column:3;background:#fff7ed}
- tbody td[data-r="1"]{grid-row:2}tbody td[data-r="2"]{grid-row:3}tbody td[data-r="3"]{grid-row:4}tbody td[data-r="4"]{grid-row:5}
+ tbody td[data-r="1"]{grid-row:2}tbody td[data-r="2"]{grid-row:3}tbody td[data-r="3"]{grid-row:4}tbody td[data-r="4"]{grid-row:5}tbody td[data-r="5"]{grid-row:6}
  tbody td input{min-width:0;padding:6px 3px;min-height:36px;font-size:14px;text-align:center}
- tbody td.actual,tbody td.delta{font-weight:700;font-size:13px;justify-content:space-between}
- tbody td.no-print{grid-column:1/-1;grid-row:6;text-align:right;padding-top:4px}
+ tbody td.calc,tbody td.actual,tbody td.delta{font-weight:700;font-size:13px;justify-content:space-between}
+ tbody td.no-print{grid-column:1/-1;grid-row:7;text-align:right;padding-top:4px}
  .actions,.dactions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.actions button,.dactions button{min-height:42px;padding:9px 7px;font-size:13px}
  .note{font-size:12px}
  .dlg{padding:6px}.dbox{margin:0 auto;padding:10px;border-radius:10px}.dgrid{grid-template-columns:1fr}
@@ -85,7 +85,7 @@ td input{min-width:85px;padding:7px;text-align:right}
  <div><label for="bmRead">Số đọc mia tại điểm mốc (mm)</label><input id="bmRead" type="number" step="1" value="1250"></div>
  <div class="metric"><span>Chiều cao máy (H máy, mm)</span><strong id="hi">11250</strong></div>
 </div>
-<p class="note">H máy = Cao độ điểm mốc + Số đọc mia tại điểm mốc. Cao độ đo = H máy − Số đọc mia tại vị trí kiểm tra. Tất cả số liệu và kết quả tính bằng milimét (mm).</p>
+<p class="note">H máy = Cao độ điểm mốc + Số đọc mia tại điểm mốc. Cao độ đo = H máy − Số đọc mia tại vị trí kiểm tra. Mia tính toán = H máy − Cao độ thiết kế (số đọc mia cần có để đúng cao độ thiết kế). Tất cả số liệu và kết quả tính bằng milimét (mm).</p>
 </section>
 
 <section class="panel">
@@ -93,11 +93,11 @@ td input{min-width:85px;padding:7px;text-align:right}
 <div class="table-wrap">
 <table>
 <thead>
-<tr><th rowspan="2">Mặt cắt / Lý trình</th><th colspan="4">Trái</th><th colspan="4">Tim</th><th colspan="4">Phải</th><th rowspan="2" class="no-print">Xóa</th></tr>
+<tr><th rowspan="2">Mặt cắt / Lý trình</th><th colspan="5">Trái</th><th colspan="5">Tim</th><th colspan="5">Phải</th><th rowspan="2" class="no-print">Xóa</th></tr>
 <tr>
- <th>Số đọc mia</th><th>CĐ thiết kế</th><th>CĐ đo</th><th>ΔH</th>
- <th>Số đọc mia</th><th>CĐ thiết kế</th><th>CĐ đo</th><th>ΔH</th>
- <th>Số đọc mia</th><th>CĐ thiết kế</th><th>CĐ đo</th><th>ΔH</th>
+ <th>Số đọc mia</th><th>CĐ thiết kế</th><th>Mia tính toán</th><th>CĐ đo</th><th>ΔH</th>
+ <th>Số đọc mia</th><th>CĐ thiết kế</th><th>Mia tính toán</th><th>CĐ đo</th><th>ΔH</th>
+ <th>Số đọc mia</th><th>CĐ thiết kế</th><th>Mia tính toán</th><th>CĐ đo</th><th>ΔH</th>
 </tr>
 </thead>
 <tbody id="rows"></tbody>
@@ -166,7 +166,7 @@ function renderRows(){
   POS.forEach(p=>{const v=sec.values[p],L=LB[p].toUpperCase();
    c+=`<td data-g="${p}" data-r="1" data-l="${L} · Mia đọc"><input class="staff" data-pos="${p}" aria-label="Số đọc mia ${LB[p]}" type="number" step="1" placeholder="Số đọc" value="${esc(v.staff)}"></td>
    <td data-g="${p}" data-r="2" data-l="CĐ thiết kế"><input class="design" data-pos="${p}" aria-label="Cao độ thiết kế ${LB[p]}" type="number" step="1" placeholder="Thiết kế" value="${esc(v.design)}"></td>
-   <td class="result actual" data-g="${p}" data-r="3" data-l="CĐ đo">—</td><td class="result delta" data-g="${p}" data-r="4" data-l="ΔH">—</td>`;});
+   <td class="result calc" data-g="${p}" data-r="3" data-l="Mia tính toán">—</td><td class="result actual" data-g="${p}" data-r="4" data-l="CĐ đo">—</td><td class="result delta" data-g="${p}" data-r="5" data-l="ΔH">—</td>`;});
   return `<tr data-id="${sec.id}">${c}<td class="no-print"><button class="danger delete-row" type="button" aria-label="Xóa mặt cắt">×</button></td></tr>`;
  }).join("");
  calculate();
@@ -186,8 +186,9 @@ $("rows").addEventListener("click",e=>{
 function calculate(){
  const hi=instrumentHeight();let m=0,a=0,b=0;
  document.querySelectorAll("#rows tr").forEach(tr=>POS.forEach(p=>{
-  const q=s=>tr.querySelector(`${s}[data-pos="${p}"]`),ac=tr.querySelector(`.actual[data-g="${p}"]`),dc=tr.querySelector(`.delta[data-g="${p}"]`);
+  const q=s=>tr.querySelector(`${s}[data-pos="${p}"]`),cc=tr.querySelector(`.calc[data-g="${p}"]`),ac=tr.querySelector(`.actual[data-g="${p}"]`),dc=tr.querySelector(`.delta[data-g="${p}"]`);
   const staff=num(q(".staff").value),design=num(q(".design").value),actual=hi-staff;
+  cc.textContent=fmt(hi-design);
   if(Number.isFinite(actual)){m++;ac.textContent=fmt(actual);}else ac.textContent="—";
   if(Number.isFinite(actual)&&Number.isFinite(design)){
    const d=actual-design;dc.textContent=signed(d);
@@ -227,8 +228,8 @@ function download(content,type,name){const url=URL.createObjectURL(new Blob([con
 function exportRows(){
  const d=payload(),hi=num(d.benchmark.elevation)+num(d.benchmark.reading);
  const rows=[["Tên đường",d.road.name],["Đoạn đường",d.road.segment],["Công trình",d.road.project],["Thời gian đo",d.measuredAt],["Cao độ mốc (mm)",d.benchmark.elevation],["Số đọc mia mốc (mm)",d.benchmark.reading],["Chiều cao máy (mm)",fmt(hi)],[]];
- rows.push(["Mặt cắt",...POS.flatMap(p=>["Số đọc mia","CĐ thiết kế","CĐ đo","ΔH"].map(x=>`${LB[p]} - ${x} (mm)`))]);
- d.sections.forEach(s=>{const r=[s.name];POS.forEach(p=>{const st=num(s.values[p].staff),dg=num(s.values[p].design),ac=hi-st,dl=ac-dg;r.push(s.values[p].staff,s.values[p].design,fmt(ac),Number.isFinite(dl)?signed(dl):"—");});rows.push(r);});
+ rows.push(["Mặt cắt",...POS.flatMap(p=>["Số đọc mia","CĐ thiết kế","Mia tính toán","CĐ đo","ΔH"].map(x=>`${LB[p]} - ${x} (mm)`))]);
+ d.sections.forEach(s=>{const r=[s.name];POS.forEach(p=>{const st=num(s.values[p].staff),dg=num(s.values[p].design),ac=hi-st,dl=ac-dg;r.push(s.values[p].staff,s.values[p].design,fmt(hi-dg),fmt(ac),Number.isFinite(dl)?signed(dl):"—");});rows.push(r);});
  return rows;
 }
 function csvExport(){download("\uFEFF"+exportRows().map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(";")).join("\r\n"),"text/csv;charset=utf-8;",fileName("bang_kiem_tra_cao_do","csv",$("roadName").value,$("roadSegment").value));}
@@ -295,7 +296,7 @@ $("reset").addEventListener("click",()=>{if(!confirm("Khôi phục mẫu ban đ�
 $("exportCsv").addEventListener("click",csvExport);
 $("exportXlsx").addEventListener("click",()=>{
  if(!window.XLSX){alert("Không tải được thư viện Excel. Công cụ sẽ xuất CSV thay thế.");csvExport();return;}
- const wb=XLSX.utils.book_new(),ws=XLSX.utils.aoa_to_sheet(exportRows());ws["!cols"]=Array(13).fill({wch:19});
+ const wb=XLSX.utils.book_new(),ws=XLSX.utils.aoa_to_sheet(exportRows());ws["!cols"]=Array(16).fill({wch:19});
  XLSX.utils.book_append_sheet(wb,ws,"Kiem tra cao do");XLSX.writeFile(wb,fileName("bang_kiem_tra_cao_do","xlsx",$("roadName").value,$("roadSegment").value));
 });
 $("saveJson").addEventListener("click",()=>download(JSON.stringify(payload(),null,2),"application/json;charset=utf-8;",fileName("du_lieu_kiem_tra_cao_do","json",$("roadName").value,$("roadSegment").value)));
