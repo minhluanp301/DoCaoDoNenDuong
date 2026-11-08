@@ -18,11 +18,11 @@ input:focus,button:focus-visible{outline:2px solid #93c5fd;border-color:#3b82f6}
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
 button{border:0;border-radius:7px;padding:10px 14px;font-weight:700;cursor:pointer}
 .primary{background:#1769aa;color:#fff}.secondary{background:#e7eef6;color:#23415e}.danger{background:#fee2e2;color:#991b1b}.success{background:#15803d;color:#fff}
-.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:1450px;font-size:13px}
+.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:1750px;font-size:13px}
 th,td{border:1px solid #dbe3ec;padding:7px;text-align:center;white-space:nowrap}
 thead tr:first-child th{background:#dceaf7;color:#173e61}thead tr:nth-child(2) th{background:#eaf1f8;color:#23415e}
 td input{min-width:85px;padding:7px;text-align:right}
-.result{font-weight:700;font-variant-numeric:tabular-nums}.calc{color:#6d28d9}.up{color:#b45309}.down{color:#dc2626}.equal{color:#15803d}
+.result{font-weight:700;font-variant-numeric:tabular-nums}.calc{color:#6d28d9}.lay{color:#0f766e}.up{color:#b45309}.down{color:#dc2626}.equal{color:#15803d}
 .badge{display:inline-block;padding:4px 8px;border-radius:20px;background:#f1f5f9;font-size:12px}
 .note{font-size:13px;color:#64748b;line-height:1.5}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .file-input{display:none}.statusbar{font-size:12px;color:#64748b;margin-top:9px}
@@ -37,6 +37,12 @@ td input{min-width:85px;padding:7px;text-align:right}
 .drow .dname input{text-align:left;font-weight:700}.drow .dname button{padding:0;width:32px;height:36px;flex:none}
 .dactions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 
+.sel{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:7px;font-size:14px;background:#fff}
+.lrow{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) auto;gap:8px;align-items:end;padding:8px;margin-bottom:8px;border:1px solid #dbe3ec;border-radius:9px;background:#f8fbff}
+.lrow label{margin:0;font-size:12px}.lrow label span{display:block;margin-bottom:4px;color:#475569}
+.lbtn{display:flex;gap:4px}.lbtn button{padding:0;width:34px;height:36px}
+.tpl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}.tpl .sel{flex:1;min-width:170px;width:auto}
+@media(max-width:760px){.lrow{grid-template-columns:1fr 1fr}.lrow .lname{grid-column:1/-1}.lbtn{justify-content:flex-end}.sel{font-size:16px;min-height:40px}.tpl button{flex:1;min-height:42px}}
 @media print{body{background:#fff;padding:0}.wrap{max-width:none}.panel{box-shadow:none;border:0;padding:7px 0;margin-bottom:8px}.actions,.no-print,.statusbar{display:none!important}input{border:0;padding:2px;background:transparent!important;color:#000}h1{font-size:19px}table{min-width:0;font-size:8px}th,td{padding:3px}.metric{break-inside:avoid}}
 
 @media(max-width:760px){
@@ -44,17 +50,17 @@ td input{min-width:85px;padding:7px;text-align:right}
  .panel{padding:12px;border-radius:10px;margin-bottom:11px}h2{font-size:16px}.grid{grid-template-columns:1fr;gap:10px}
  input{font-size:16px;min-height:40px;padding:8px}.table-wrap{overflow:visible}
  table,thead,tbody{display:block;width:100%;min-width:0}thead{display:none}
- tbody tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto repeat(5,minmax(68px,auto)) auto;gap:6px;border:1px solid #cbd5e1;border-radius:10px;padding:9px;margin-bottom:12px;background:#fff;box-shadow:0 1px 4px #0f172a0d}
+ tbody tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto repeat(6,minmax(68px,auto)) auto;gap:6px;border:1px solid #cbd5e1;border-radius:10px;padding:9px;margin-bottom:12px;background:#fff;box-shadow:0 1px 4px #0f172a0d}
  tbody td{display:block;min-width:0;border:0;padding:5px 4px;white-space:normal;text-align:left}
  tbody td:first-child{grid-column:1/-1;grid-row:1;padding:2px 0 9px;border-bottom:1px solid #e2e8f0;margin-bottom:3px}
  tbody td:first-child input{font-weight:700;background:#f1f7fd;min-width:0;text-align:left}
  tbody td[data-l]{display:flex;flex-direction:column;justify-content:space-between;gap:4px;border-radius:5px;height:100%}
  tbody td[data-l]::before{content:attr(data-l);font-size:10px;color:#475569;font-weight:700;line-height:1.2}
  tbody td[data-g="left"]{grid-column:1;background:#f0f7ff}tbody td[data-g="center"]{grid-column:2;background:#f0fdf4}tbody td[data-g="right"]{grid-column:3;background:#fff7ed}
- tbody td[data-r="1"]{grid-row:2}tbody td[data-r="2"]{grid-row:3}tbody td[data-r="3"]{grid-row:4}tbody td[data-r="4"]{grid-row:5}tbody td[data-r="5"]{grid-row:6}
+ tbody td[data-r="1"]{grid-row:2}tbody td[data-r="2"]{grid-row:3}tbody td[data-r="3"]{grid-row:4}tbody td[data-r="4"]{grid-row:5}tbody td[data-r="5"]{grid-row:6}tbody td[data-r="6"]{grid-row:7}
  tbody td input{min-width:0;padding:6px 3px;min-height:36px;font-size:14px;text-align:center}
- tbody td.calc,tbody td.actual,tbody td.delta{font-weight:700;font-size:13px;justify-content:space-between}
- tbody td.no-print{grid-column:1/-1;grid-row:7;text-align:right;padding-top:4px}
+ tbody td.lay,tbody td.calc,tbody td.actual,tbody td.delta{font-weight:700;font-size:13px;justify-content:space-between}
+ tbody td.no-print{grid-column:1/-1;grid-row:8;text-align:right;padding-top:4px}
  .actions,.dactions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.actions button,.dactions button{min-height:42px;padding:9px 7px;font-size:13px}
  .note{font-size:12px}
  .dlg{padding:6px}.dbox{margin:0 auto;padding:10px;border-radius:10px}.dgrid{grid-template-columns:1fr}
@@ -71,10 +77,12 @@ td input{min-width:85px;padding:7px;text-align:right}
 <section class="panel">
 <h2>1. Thông tin công trình</h2>
 <div class="grid">
+ <div><label for="projectName">Tên công trình / dự án</label><input id="projectName" type="text" placeholder="Nhập tên công trình"></div>
+ <div><label for="supervisor">Tư vấn giám sát (TVGS)</label><input id="supervisor" type="text" placeholder="Nhập tên đơn vị TVGS"></div>
+ <div><label for="contractor">Đơn vị thi công</label><input id="contractor" type="text" placeholder="Nhập tên đơn vị thi công"></div>
  <div><label for="roadName">Tên đường</label><input id="roadName" type="text" placeholder="Ví dụ: Đường Nguyễn Văn A"></div>
  <div><label for="roadSegment">Đoạn đường</label><input id="roadSegment" type="text" placeholder="Ví dụ: Km0+000 – Km1+200"></div>
- <div><label for="projectName">Tên công trình / dự án</label><input id="projectName" type="text" placeholder="Nhập tên công trình (nếu có)"></div>
- <div><label for="measuredAt">Thời gian đo</label><input id="measuredAt" type="datetime-local"></div>
+ <div><label for="measuredAt">Thời gian đo</label><div style="display:flex;gap:6px"><input id="measuredAt" type="datetime-local"><button class="secondary" id="nowBtn" type="button" style="white-space:nowrap;padding:9px 11px">Hiện tại</button></div></div>
 </div>
 </section>
 
@@ -85,19 +93,40 @@ td input{min-width:85px;padding:7px;text-align:right}
  <div><label for="bmRead">Số đọc mia tại điểm mốc (mm)</label><input id="bmRead" type="number" step="1" value="1250"></div>
  <div class="metric"><span>Chiều cao máy (H máy, mm)</span><strong id="hi">11250</strong></div>
 </div>
-<p class="note">H máy = Cao độ điểm mốc + Số đọc mia tại điểm mốc. Cao độ đo = H máy − Số đọc mia tại vị trí kiểm tra. Mia tính toán = H máy − Cao độ thiết kế (số đọc mia cần có để đúng cao độ thiết kế). Tất cả số liệu và kết quả tính bằng milimét (mm).</p>
+<p class="note">H máy = Cao độ điểm mốc + Số đọc mia tại điểm mốc. Cao độ đo = H máy − Số đọc mia tại vị trí kiểm tra. Mia tính toán = H máy − Cao độ thiết kế của lớp đang đo (số đọc mia cần có để đúng cao độ thiết kế). Tất cả số liệu và kết quả tính bằng milimét (mm).</p>
 </section>
 
 <section class="panel">
-<div class="toolbar"><h2 style="margin:0">3. Bảng kiểm tra cao độ theo mặt cắt</h2><span class="badge" id="sectionCount">5 mặt cắt</span></div>
+<h2>3. Lớp kết cấu cần kiểm tra</h2>
+<p class="note" style="margin-top:0">Liệt kê các lớp từ trên xuống dưới (thêm, xóa, đổi thứ tự tùy ý). Cao độ thiết kế nhập ở bảng là cao độ <b>đỉnh của lớp trên cùng</b>.</p>
+<div id="layerList"></div>
+<div class="actions no-print"><button class="primary" id="addLayer" type="button">＋ Thêm lớp</button></div>
+<div class="tpl no-print">
+ <select class="sel" id="tplSel" aria-label="Mẫu kết cấu đã lưu"></select>
+ <button class="secondary" id="tplApply" type="button">Áp dụng mẫu</button>
+ <button class="success" id="tplSave" type="button">Lưu thành mẫu</button>
+ <button class="danger" id="tplDel" type="button">Xóa mẫu</button>
+ <button class="secondary" id="tplSaveFile" type="button">Lưu file mẫu (JSON)</button>
+ <button class="secondary" id="tplOpenFile" type="button">Mở file mẫu (JSON)</button>
+ <input class="file-input" id="tplFile" type="file" accept=".json,application/json">
+</div>
+<div class="grid" style="margin-top:14px">
+ <div><label for="layerSel">Đo hoàn thiện lớp</label><select class="sel" id="layerSel"></select></div>
+ <div class="metric"><span>Độ hạ so với đỉnh lớp trên cùng (mm)</span><strong id="layerDrop">0</strong></div>
+</div>
+<p class="note">Cao độ thiết kế lớp đo = CĐ đỉnh lớp trên cùng − tổng độ dày các lớp nằm phía trên lớp đo. Mia tính toán và ΔH dùng cao độ thiết kế của lớp đang đo. Mẫu lưu trong danh sách chỉ nằm trong trình duyệt này; dùng "Lưu file mẫu" để sao lưu hoặc mang sang thiết bị khác.</p>
+</section>
+
+<section class="panel">
+<div class="toolbar"><h2 style="margin:0">4. Bảng kiểm tra cao độ theo mặt cắt</h2><span class="badge" id="sectionCount">5 mặt cắt</span></div>
 <div class="table-wrap">
 <table>
 <thead>
-<tr><th rowspan="2">Mặt cắt / Lý trình</th><th colspan="5">Trái</th><th colspan="5">Tim</th><th colspan="5">Phải</th><th rowspan="2" class="no-print">Xóa</th></tr>
+<tr><th rowspan="2">Mặt cắt / Lý trình</th><th colspan="6">Trái</th><th colspan="6">Tim</th><th colspan="6">Phải</th><th rowspan="2" class="no-print">Xóa</th></tr>
 <tr>
- <th>Số đọc mia</th><th>CĐ thiết kế</th><th>Mia tính toán</th><th>CĐ đo</th><th>ΔH</th>
- <th>Số đọc mia</th><th>CĐ thiết kế</th><th>Mia tính toán</th><th>CĐ đo</th><th>ΔH</th>
- <th>Số đọc mia</th><th>CĐ thiết kế</th><th>Mia tính toán</th><th>CĐ đo</th><th>ΔH</th>
+ <th>Số đọc mia</th><th class="topTh">CĐ TK đỉnh lớp trên</th><th>CĐ TK lớp đo</th><th>Mia tính toán</th><th>CĐ đo</th><th>ΔH</th>
+ <th>Số đọc mia</th><th class="topTh">CĐ TK đỉnh lớp trên</th><th>CĐ TK lớp đo</th><th>Mia tính toán</th><th>CĐ đo</th><th>ΔH</th>
+ <th>Số đọc mia</th><th class="topTh">CĐ TK đỉnh lớp trên</th><th>CĐ TK lớp đo</th><th>Mia tính toán</th><th>CĐ đo</th><th>ΔH</th>
 </tr>
 </thead>
 <tbody id="rows"></tbody>
@@ -124,7 +153,7 @@ td input{min-width:85px;padding:7px;text-align:right}
 <div class="dlg" id="designDialog" role="dialog" aria-modal="true" aria-labelledby="designTitle">
  <div class="dbox">
   <div class="toolbar"><h2 id="designTitle" style="margin:0">Nhập mặt cắt theo thiết kế</h2><button class="secondary" id="closeDesign">Đóng</button></div>
-  <p class="note">Mỗi mặt cắt nhập trên một dòng: tên mặt cắt và ba cao độ thiết kế (mm) CĐTK trái – tim – phải. Bấm "Áp dụng vào bảng đo" để đưa vào bảng chính (giữ nguyên số đọc mia đã nhập), hoặc "Lưu file thiết kế" để dùng lại sau.</p>
+  <p class="note">Mỗi mặt cắt nhập trên một dòng: tên mặt cắt và ba cao độ thiết kế đỉnh lớp trên cùng (mặc định là bê tông) (mm) CĐTK trái – tim – phải. Bấm "Áp dụng vào bảng đo" để đưa vào bảng chính (giữ nguyên số đọc mia đã nhập), hoặc "Lưu file thiết kế" để dùng lại sau.</p>
   <div class="dgrid">
    <div><label for="designRoadName">Tên đường</label><input id="designRoadName" type="text" placeholder="Tên đường"></div>
    <div><label for="designRoadSegment">Đoạn đường</label><input id="designRoadSegment" type="text" placeholder="Ví dụ: Km0+000 – Km1+200"></div>
@@ -136,7 +165,7 @@ td input{min-width:85px;padding:7px;text-align:right}
 </div>
 
 <section class="panel">
-<h2>4. Tổng hợp kết quả</h2>
+<h2>5. Tổng hợp kết quả</h2>
 <div class="grid">
  <div class="metric"><span>Số vị trí đã có số đọc mia</span><strong id="measuredCount">0</strong></div>
  <div class="metric"><span>Số vị trí cao hơn thiết kế</span><strong id="aboveCount">0</strong></div>
@@ -158,6 +187,27 @@ let sections=[],nextId=1,designRows=[],saveTimer;
 const emptyVals=()=>Object.fromEntries(POS.map(p=>[p,{staff:"",design:""}]));
 const makeSection=name=>({id:nextId++,name,values:emptyVals()});
 function initialData(){sections=[];nextId=1;INIT.forEach(n=>sections.push(makeSection(n)));}
+const defaultLayers=()=>[{name:"Bê tông",t:"240"},{name:"Cấp phối đá dăm",t:"200"},{name:"K98",t:"500"}];
+let layers=defaultLayers(),layerIdx=0;
+const topLabel=()=>"CĐ TK đỉnh "+(layers[0]?.name||"lớp trên");
+function updateTopLabels(){document.querySelectorAll(".topTh").forEach(t=>t.textContent=topLabel());document.querySelectorAll('td[data-r="2"]').forEach(t=>t.dataset.l=topLabel());}
+function layerOffset(){let off=0;for(let i=0;i<layerIdx;i++)off+=num(layers[i]?.t)||0;$("layerDrop").textContent=fmt(off);return off;}
+function renderLayerSel(){$("layerSel").innerHTML=layers.map((l,i)=>`<option value="${i}">Đỉnh ${esc(l.name||"lớp "+(i+1))}</option>`).join("");$("layerSel").value=layerIdx;}
+function renderLayers(){
+ layerIdx=Math.min(Math.max(0,layerIdx|0),layers.length-1);
+ $("layerList").innerHTML=layers.map((l,i)=>`<div class="lrow" data-i="${i}">
+  <label class="lname"><span>Lớp ${i+1} · Tên lớp</span><input type="text" data-f="name" value="${esc(l.name)}" placeholder="Tên lớp"></label>
+  <label><span>Dày (mm)</span><input type="number" step="1" inputmode="numeric" data-f="t" value="${esc(l.t)}" placeholder="mm"></label>
+  <div class="lbtn"><button class="secondary" type="button" data-act="up" aria-label="Chuyển lên">↑</button><button class="secondary" type="button" data-act="down" aria-label="Chuyển xuống">↓</button><button class="danger" type="button" data-act="del" aria-label="Xóa lớp">×</button></div>
+ </div>`).join("");
+ renderLayerSel();updateTopLabels();layerOffset();
+}
+function loadLayers(L){
+ if(L&&Array.isArray(L.layers)&&L.layers.length){layers=L.layers.map(l=>({name:String(l.name??""),t:String(l.t??"")}));layerIdx=Number.isInteger(L.sel)?L.sel:0;}
+ else if(L&&L.mode){layers=[{name:"Bê tông",t:String(L.bt??240)},{name:"Cấp phối đá dăm",t:String(L.cp??200)},{name:"K98",t:String(L.k98??500)}];layerIdx=({bt:0,cp:1,k98:2})[L.mode]??0;}
+ else{layers=defaultLayers();layerIdx=0;}
+ renderLayers();
+}
 const instrumentHeight=()=>{const h=num($("bmElev").value)+num($("bmRead").value);$("hi").textContent=fmt(h);return h;};
 
 function renderRows(){
@@ -165,8 +215,8 @@ function renderRows(){
   let c=`<td><input class="section-name" aria-label="Tên mặt cắt" type="text" value="${esc(sec.name)}" style="min-width:120px;text-align:left"></td>`;
   POS.forEach(p=>{const v=sec.values[p],L=LB[p].toUpperCase();
    c+=`<td data-g="${p}" data-r="1" data-l="${L} · Mia đọc"><input class="staff" data-pos="${p}" aria-label="Số đọc mia ${LB[p]}" type="number" step="1" placeholder="Số đọc" value="${esc(v.staff)}"></td>
-   <td data-g="${p}" data-r="2" data-l="CĐ thiết kế"><input class="design" data-pos="${p}" aria-label="Cao độ thiết kế ${LB[p]}" type="number" step="1" placeholder="Thiết kế" value="${esc(v.design)}"></td>
-   <td class="result calc" data-g="${p}" data-r="3" data-l="Mia tính toán">—</td><td class="result actual" data-g="${p}" data-r="4" data-l="CĐ đo">—</td><td class="result delta" data-g="${p}" data-r="5" data-l="ΔH">—</td>`;});
+   <td data-g="${p}" data-r="2" data-l="${esc(topLabel())}"><input class="design" data-pos="${p}" aria-label="Cao độ thiết kế ${LB[p]}" type="number" step="1" placeholder="Thiết kế" value="${esc(v.design)}"></td>
+   <td class="result lay" data-g="${p}" data-r="3" data-l="CĐ TK lớp đo">—</td><td class="result calc" data-g="${p}" data-r="4" data-l="Mia tính toán">—</td><td class="result actual" data-g="${p}" data-r="5" data-l="CĐ đo">—</td><td class="result delta" data-g="${p}" data-r="6" data-l="ΔH">—</td>`;});
   return `<tr data-id="${sec.id}">${c}<td class="no-print"><button class="danger delete-row" type="button" aria-label="Xóa mặt cắt">×</button></td></tr>`;
  }).join("");
  calculate();
@@ -184,11 +234,11 @@ $("rows").addEventListener("click",e=>{
 });
 
 function calculate(){
- const hi=instrumentHeight();let m=0,a=0,b=0;
+ const hi=instrumentHeight(),off=layerOffset();let m=0,a=0,b=0;
  document.querySelectorAll("#rows tr").forEach(tr=>POS.forEach(p=>{
-  const q=s=>tr.querySelector(`${s}[data-pos="${p}"]`),cc=tr.querySelector(`.calc[data-g="${p}"]`),ac=tr.querySelector(`.actual[data-g="${p}"]`),dc=tr.querySelector(`.delta[data-g="${p}"]`);
-  const staff=num(q(".staff").value),design=num(q(".design").value),actual=hi-staff;
-  cc.textContent=fmt(hi-design);
+  const q=s=>tr.querySelector(`${s}[data-pos="${p}"]`),lc=tr.querySelector(`.lay[data-g="${p}"]`),cc=tr.querySelector(`.calc[data-g="${p}"]`),ac=tr.querySelector(`.actual[data-g="${p}"]`),dc=tr.querySelector(`.delta[data-g="${p}"]`);
+  const staff=num(q(".staff").value),design=num(q(".design").value)-off,actual=hi-staff;
+  lc.textContent=fmt(design);cc.textContent=fmt(hi-design);
   if(Number.isFinite(actual)){m++;ac.textContent=fmt(actual);}else ac.textContent="—";
   if(Number.isFinite(actual)&&Number.isFinite(design)){
    const d=actual-design;dc.textContent=signed(d);
@@ -199,14 +249,15 @@ function calculate(){
  $("sectionCount").textContent=sections.length+" mặt cắt";
 }
 
-const payload=()=>({app:"kiem-tra-cao-do-duong",version:3,savedAt:new Date().toISOString(),measuredAt:$("measuredAt").value,road:{name:$("roadName").value,segment:$("roadSegment").value,project:$("projectName").value},benchmark:{elevation:$("bmElev").value,reading:$("bmRead").value},sections});
+const payload=()=>({app:"kiem-tra-cao-do-duong",version:5,savedAt:new Date().toISOString(),measuredAt:$("measuredAt").value,road:{name:$("roadName").value,segment:$("roadSegment").value,project:$("projectName").value,contractor:$("contractor").value,supervisor:$("supervisor").value},benchmark:{elevation:$("bmElev").value,reading:$("bmRead").value},layer:{layers:layers.map(l=>({name:l.name,t:l.t})),sel:layerIdx},sections});
 const toMm=(v,ver)=>{if(ver!==2||v===""||v==null)return String(v??"");const n=Number(v);return Number.isFinite(n)?String(Math.round(n*1000)):"";}; // file cũ (m) → mm
 function applyData(d){
  if(!d||!d.benchmark||!Array.isArray(d.sections))throw Error("Tệp không đúng định dạng dữ liệu.");
- $("roadName").value=d.road?.name??"";$("roadSegment").value=d.road?.segment??"";$("projectName").value=d.road?.project??"";$("measuredAt").value=d.measuredAt??"";
+ $("roadName").value=d.road?.name??"";$("roadSegment").value=d.road?.segment??"";$("projectName").value=d.road?.project??"";$("contractor").value=d.road?.contractor??"";$("supervisor").value=d.road?.supervisor??"";$("measuredAt").value=d.measuredAt??"";
  const k=d.version===2?1000:1;
  $("bmElev").value=d.benchmark.elevation!==""&&d.benchmark.elevation!=null?Number(d.benchmark.elevation)*k:10000;
  $("bmRead").value=d.benchmark.reading!==""&&d.benchmark.reading!=null?Number(d.benchmark.reading)*k:1250;
+ loadLayers(d.layer);
  nextId=1;
  sections=d.sections.map(s=>({id:nextId++,name:String(s.name??""),values:Object.fromEntries(POS.map(p=>[p,{staff:toMm(s.values?.[p]?.staff,d.version),design:toMm(s.values?.[p]?.design,d.version)}]))}));
  renderRows();saveLocal();
@@ -216,23 +267,22 @@ function saveLocal(){
  saveTimer=setTimeout(()=>{try{localStorage.setItem("levelSurveyDataV3",JSON.stringify(payload()));$("saveStatus").textContent="Đã tự động lưu tạm lúc "+new Date().toLocaleTimeString("vi-VN");}catch(e){$("saveStatus").textContent="Không thể tự động lưu; hãy tải tệp JSON để sao lưu.";}},300);
 }
 function slug(t,d){const x=String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"D").replace(/[^A-Za-z0-9]+/g,"-").replace(/^-+|-+$/g,"");return x||d;}
-// Tên file: yyyymmdd_hhmmss_tên đường_đoạn đường_nội dung_stt
-function fileName(content,ext,road,seg){
+// Tên file xuất: yyyy.mm.dd_KtraCaoDo_Tên đường_đoạn đường_hhmmss.ext
+function fileName(ext,road,seg){
  const n=new Date(),z=v=>String(v).padStart(2,"0");
- const day=""+n.getFullYear()+z(n.getMonth()+1)+z(n.getDate()),tm=z(n.getHours())+z(n.getMinutes())+z(n.getSeconds());
- const base=[day,tm,slug(road,"duong"),slug(seg,"doan"),content].join("_"),key="levelSurveyStt_"+day+"_"+content;
- let k=1;try{k=(Number(localStorage.getItem(key))||0)+1;localStorage.setItem(key,k);}catch(e){}
- return base+"_"+z(k)+"."+ext;
+ return [n.getFullYear()+"."+z(n.getMonth()+1)+"."+z(n.getDate()),"KtraCaoDo",slug(road,"duong"),slug(seg,"doan"),z(n.getHours())+z(n.getMinutes())+z(n.getSeconds())].join("_")+"."+ext;
 }
+// File thiết kế: CDTK_Tên đường_đoạn đường.json
+const designName=(road,seg)=>["CDTK",slug(road,"duong"),slug(seg,"doan")].join("_")+".json";
 function download(content,type,name){const url=URL.createObjectURL(new Blob([content],{type})),a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function exportRows(){
- const d=payload(),hi=num(d.benchmark.elevation)+num(d.benchmark.reading);
- const rows=[["Tên đường",d.road.name],["Đoạn đường",d.road.segment],["Công trình",d.road.project],["Thời gian đo",d.measuredAt],["Cao độ mốc (mm)",d.benchmark.elevation],["Số đọc mia mốc (mm)",d.benchmark.reading],["Chiều cao máy (mm)",fmt(hi)],[]];
- rows.push(["Mặt cắt",...POS.flatMap(p=>["Số đọc mia","CĐ thiết kế","Mia tính toán","CĐ đo","ΔH"].map(x=>`${LB[p]} - ${x} (mm)`))]);
- d.sections.forEach(s=>{const r=[s.name];POS.forEach(p=>{const st=num(s.values[p].staff),dg=num(s.values[p].design),ac=hi-st,dl=ac-dg;r.push(s.values[p].staff,s.values[p].design,fmt(hi-dg),fmt(ac),Number.isFinite(dl)?signed(dl):"—");});rows.push(r);});
+ const d=payload(),hi=num(d.benchmark.elevation)+num(d.benchmark.reading),off=layerOffset();
+ const rows=[["Tên đường",d.road.name],["Đoạn đường",d.road.segment],["Công trình",d.road.project],["Đơn vị thi công",d.road.contractor],["TVGS",d.road.supervisor],["Thời gian đo",d.measuredAt],["Cao độ mốc (mm)",d.benchmark.elevation],["Số đọc mia mốc (mm)",d.benchmark.reading],["Chiều cao máy (mm)",fmt(hi)],["Lớp kiểm tra",layers[layerIdx]?.name||""],...layers.map((l,i)=>["Lớp "+(i+1)+": "+l.name+" - dày (mm)",l.t]),["Độ hạ so với đỉnh lớp trên cùng (mm)",fmt(off)],[]];
+ rows.push(["Mặt cắt",...POS.flatMap(p=>["Số đọc mia",topLabel(),"CĐ TK lớp đo","Mia tính toán","CĐ đo","ΔH"].map(x=>`${LB[p]} - ${x} (mm)`))]);
+ d.sections.forEach(s=>{const r=[s.name];POS.forEach(p=>{const st=num(s.values[p].staff),dg=num(s.values[p].design)-off,ac=hi-st,dl=ac-dg;r.push(s.values[p].staff,s.values[p].design,fmt(dg),fmt(hi-dg),fmt(ac),Number.isFinite(dl)?signed(dl):"—");});rows.push(r);});
  return rows;
 }
-function csvExport(){download("\uFEFF"+exportRows().map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(";")).join("\r\n"),"text/csv;charset=utf-8;",fileName("bang_kiem_tra_cao_do","csv",$("roadName").value,$("roadSegment").value));}
+function csvExport(){download("\uFEFF"+exportRows().map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(";")).join("\r\n"),"text/csv;charset=utf-8;",fileName("csv",$("roadName").value,$("roadSegment").value));}
 
 /* ===== Nhập theo thiết kế: 3 ô CĐTK trên một dòng ===== */
 function renderDesignRows(){
@@ -270,7 +320,7 @@ $("applyDesign").addEventListener("click",()=>{
 });
 $("saveDesignFile").addEventListener("click",()=>{
  if(!validDesign())return;
- download(JSON.stringify({app:"kiem-tra-cao-do-duong-design",version:1,savedAt:new Date().toISOString(),road:{name:$("designRoadName").value,segment:$("designRoadSegment").value},sections:designRows.map(({name,left,center,right})=>({name,left,center,right}))},null,2),"application/json;charset=utf-8;",fileName("thiet_ke_mat_cat","json",$("designRoadName").value,$("designRoadSegment").value));
+ download(JSON.stringify({app:"kiem-tra-cao-do-duong-design",version:1,savedAt:new Date().toISOString(),road:{name:$("designRoadName").value,segment:$("designRoadSegment").value},sections:designRows.map(({name,left,center,right})=>({name,left,center,right}))},null,2),"application/json;charset=utf-8;",designName($("designRoadName").value,$("designRoadSegment").value));
  $("designStatus").textContent="Đã tạo file thiết kế. Có thể mở file này ở lần đo tiếp theo.";
 });
 $("openDesignFile").addEventListener("click",()=>$("designFile").click());
@@ -289,25 +339,86 @@ $("designFile").addEventListener("change",async e=>{
 
 /* ===== Sự kiện chung ===== */
 ["bmElev","bmRead"].forEach(id=>$(id).addEventListener("input",()=>{calculate();saveLocal();}));
-["roadName","roadSegment","projectName","measuredAt"].forEach(id=>$(id).addEventListener("input",saveLocal));
+$("layerSel").addEventListener("change",e=>{layerIdx=Number(e.target.value)||0;calculate();saveLocal();});
+$("layerList").addEventListener("input",e=>{
+ const row=e.target.closest(".lrow"),f=e.target.dataset.f;if(!row||!f)return;
+ const i=Number(row.dataset.i);layers[i][f]=e.target.value;
+ if(f==="name"){renderLayerSel();if(i===0)updateTopLabels();}
+ calculate();saveLocal();
+});
+$("layerList").addEventListener("click",e=>{
+ const b=e.target.closest("[data-act]");if(!b)return;
+ const i=Number(b.closest(".lrow").dataset.i),act=b.dataset.act;
+ const swap=j=>{if(j<0||j>=layers.length)return;[layers[i],layers[j]]=[layers[j],layers[i]];if(layerIdx===i)layerIdx=j;else if(layerIdx===j)layerIdx=i;};
+ if(act==="up")swap(i-1);else if(act==="down")swap(i+1);
+ else{if(layers.length<=1){alert("Phải có ít nhất một lớp.");return;}layers.splice(i,1);if(layerIdx>i)layerIdx--;}
+ renderLayers();calculate();saveLocal();
+});
+$("addLayer").addEventListener("click",()=>{layers.push({name:"Lớp mới",t:""});renderLayers();calculate();saveLocal();const l=$("layerList").querySelectorAll(".lrow");const inp=l[l.length-1].querySelector("input");inp.focus();inp.select();});
+/* ===== Mẫu kết cấu lớp ===== */
+const TPL_KEY="levelSurveyTemplatesV1";
+const getTpl=()=>{try{const a=JSON.parse(localStorage.getItem(TPL_KEY)||"[]");return Array.isArray(a)?a:[];}catch(e){return [];}};
+const setTpl=a=>{try{localStorage.setItem(TPL_KEY,JSON.stringify(a));return true;}catch(e){alert("Không thể lưu mẫu trên trình duyệt này.");return false;}};
+function renderTpl(sel){const a=getTpl();$("tplSel").innerHTML=a.length?a.map((t,i)=>`<option value="${i}">${esc(t.name)}</option>`).join(""):'<option value="">— Chưa có mẫu —</option>';if(sel!=null)$("tplSel").value=sel;}
+$("tplSave").addEventListener("click",()=>{
+ const n=prompt("Tên mẫu kết cấu (ví dụ: Đường BTXM 24cm):");if(n===null||!n.trim())return;
+ const a=getTpl(),name=n.trim(),item={name,layers:layers.map(l=>({name:l.name,t:l.t}))},i=a.findIndex(t=>t.name===name);
+ if(i>=0){if(!confirm("Mẫu \""+name+"\" đã có. Ghi đè?"))return;a[i]=item;}else a.push(item);
+ if(setTpl(a)){renderTpl(i>=0?i:a.length-1);$("saveStatus").textContent="Đã lưu mẫu kết cấu \""+name+"\".";}
+});
+$("tplApply").addEventListener("click",()=>{
+ const t=getTpl()[Number($("tplSel").value)];if(!t)return;
+ loadLayers({layers:t.layers,sel:0});calculate();saveLocal();$("saveStatus").textContent="Đã áp dụng mẫu \""+t.name+"\".";
+});
+$("tplSaveFile").addEventListener("click",()=>{
+ const cur=getTpl()[Number($("tplSel").value)],n=prompt("Tên mẫu kết cấu:",cur?cur.name:"");if(n===null||!n.trim())return;
+ download(JSON.stringify({app:"kiem-tra-cao-do-ket-cau",version:1,savedAt:new Date().toISOString(),name:n.trim(),layers:layers.map(l=>({name:l.name,t:l.t}))},null,2),"application/json;charset=utf-8;","MauKetCau_"+slug(n,"mau")+".json");
+ $("saveStatus").textContent="Đã tạo file mẫu kết cấu \""+n.trim()+"\".";
+});
+$("tplOpenFile").addEventListener("click",()=>$("tplFile").click());
+$("tplFile").addEventListener("change",async e=>{
+ const f=e.target.files[0];if(!f)return;
+ try{
+  const d=JSON.parse(await f.text());
+  if(d.app!=="kiem-tra-cao-do-ket-cau"||!Array.isArray(d.layers)||!d.layers.length)throw Error("Đây không phải file mẫu kết cấu hợp lệ.");
+  const item={name:String(d.name||f.name.replace(/\.json$/i,"")),layers:d.layers.map(l=>({name:String(l.name??""),t:String(l.t??"")}))};
+  const a=getTpl(),i=a.findIndex(t=>t.name===item.name);
+  if(i>=0)a[i]=item;else a.push(item);
+  setTpl(a);renderTpl(i>=0?i:a.length-1);
+  loadLayers({layers:item.layers,sel:0});calculate();saveLocal();
+  $("saveStatus").textContent="Đã mở mẫu kết cấu \""+item.name+"\" và thêm vào danh sách mẫu.";
+ }catch(err){alert("Không thể mở file mẫu: "+err.message);}
+ finally{e.target.value="";}
+});
+$("tplDel").addEventListener("click",()=>{
+ const a=getTpl(),i=Number($("tplSel").value);if(!a[i])return;
+ if(!confirm("Xóa mẫu \""+a[i].name+"\"?"))return;a.splice(i,1);if(setTpl(a))renderTpl(0);
+});
+["roadName","roadSegment","projectName","contractor","supervisor","measuredAt"].forEach(id=>$(id).addEventListener("input",saveLocal));
 $("recalc").addEventListener("click",calculate);
 $("addSection").addEventListener("click",()=>{const n=prompt("Nhập lý trình hoặc tên mặt cắt (ví dụ: Km0+020):");if(n===null||!n.trim())return;sections.push(makeSection(n.trim()));renderRows();saveLocal();});
-$("reset").addEventListener("click",()=>{if(!confirm("Khôi phục mẫu ban đầu? Toàn bộ số liệu hiện tại sẽ bị xóa."))return;["roadName","roadSegment","projectName"].forEach(id=>$(id).value="");$("bmElev").value="10000";$("bmRead").value="1250";initialData();renderRows();saveLocal();});
+$("reset").addEventListener("click",()=>{if(!confirm("Khôi phục mẫu ban đầu? Toàn bộ số liệu hiện tại sẽ bị xóa."))return;["roadName","roadSegment","projectName","contractor","supervisor"].forEach(id=>$(id).value="");$("bmElev").value="10000";$("bmRead").value="1250";layers=defaultLayers();layerIdx=0;renderLayers();initialData();renderRows();saveLocal();});
 $("exportCsv").addEventListener("click",csvExport);
 $("exportXlsx").addEventListener("click",()=>{
  if(!window.XLSX){alert("Không tải được thư viện Excel. Công cụ sẽ xuất CSV thay thế.");csvExport();return;}
- const wb=XLSX.utils.book_new(),ws=XLSX.utils.aoa_to_sheet(exportRows());ws["!cols"]=Array(16).fill({wch:19});
- XLSX.utils.book_append_sheet(wb,ws,"Kiem tra cao do");XLSX.writeFile(wb,fileName("bang_kiem_tra_cao_do","xlsx",$("roadName").value,$("roadSegment").value));
+ const wb=XLSX.utils.book_new(),ws=XLSX.utils.aoa_to_sheet(exportRows());ws["!cols"]=Array(19).fill({wch:19});
+ XLSX.utils.book_append_sheet(wb,ws,"Kiem tra cao do");XLSX.writeFile(wb,fileName("xlsx",$("roadName").value,$("roadSegment").value));
 });
-$("saveJson").addEventListener("click",()=>download(JSON.stringify(payload(),null,2),"application/json;charset=utf-8;",fileName("du_lieu_kiem_tra_cao_do","json",$("roadName").value,$("roadSegment").value)));
+$("saveJson").addEventListener("click",()=>download(JSON.stringify(payload(),null,2),"application/json;charset=utf-8;",fileName("json",$("roadName").value,$("roadSegment").value)));
 $("openJson").addEventListener("click",()=>$("jsonFile").click());
 $("jsonFile").addEventListener("change",async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(confirm("Mở tệp sẽ thay thế dữ liệu đang hiển thị. Tiếp tục?"))applyData(d);}catch(err){alert("Không thể mở tệp: "+err.message);}finally{e.target.value="";}});
-$("print").addEventListener("click",()=>window.print());
+$("print").addEventListener("click",()=>{
+ const old=document.title;document.title=fileName("pdf",$("roadName").value,$("roadSegment").value).replace(/\.pdf$/,"");
+ window.addEventListener("afterprint",()=>{document.title=old;},{once:true});window.print();
+});
 
+function setNow(){const n=new Date();$("measuredAt").value=new Date(n.getTime()-n.getTimezoneOffset()*60000).toISOString().slice(0,16);saveLocal();}
+$("nowBtn").addEventListener("click",setNow);
 (function start(){
+ renderTpl();
  try{const old=localStorage.getItem("levelSurveyDataV3");if(old){applyData(JSON.parse(old));$("saveStatus").textContent="Đã khôi phục dữ liệu tự động lưu.";return;}}catch(e){}
- const now=new Date();$("measuredAt").value=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,16);
- initialData();renderRows();
+ setNow();
+ renderLayers();initialData();renderRows();
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
